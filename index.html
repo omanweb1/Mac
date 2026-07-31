@@ -3,511 +3,615 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مطعم ماك | MAC</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>MAC Restaurant | قائمة الطعام</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --primary-color: #d32f2f;
-            --secondary-color: #fbc02d;
-            --bg-color: #f8f9fa;
-            --text-color: #333;
-            --card-bg: #ffffff;
+            --bg-color: #0b0612;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --primary-accent: #6C5CE7;
+            --secondary-accent: #FF7675;
+            --text-white: #ffffff;
+            --text-muted: #a0a0a0;
+            --gradient-accent: linear-gradient(135deg, #6C5CE7, #a367dc);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', 'Poppins', sans-serif;
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
         }
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-color);
-            padding-bottom: 80px;
+            color: var(--text-white);
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
         header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px 20px;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(11, 6, 18, 0.8);
+            backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .brand-logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 2px;
+        }
+
+        .header-actions {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 15px;
         }
 
-        .logo-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--secondary-color);
-        }
-
-        .slogan {
-            font-size: 0.8rem;
-            opacity: 0.9;
-            margin-top: 2px;
-        }
-
-        .header-controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .btn-lang {
-            background-color: transparent;
-            border: 1px solid white;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-lang:hover {
-            background-color: white;
-            color: var(--primary-color);
-        }
-
-        .cart-icon-btn {
-            background-color: var(--secondary-color);
-            color: #000;
-            border: none;
-            padding: 8px 12px;
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-white);
+            padding: 8px 16px;
             border-radius: 20px;
             cursor: pointer;
-            font-weight: bold;
+            font-size: 14px;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 15px;
+        .lang-btn:hover {
+            border-color: var(--primary-accent);
+            color: var(--primary-accent);
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 25px;
-            color: var(--primary-color);
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-        }
-
-        .product-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
-        .product-info {
-            padding: 15px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .product-title {
-            font-size: 1.1rem;
-            margin-bottom: 5px;
-        }
-
-        .product-desc {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 15px;
-            flex-grow: 1;
-        }
-
-        .product-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .price {
-            font-size: 1.1rem;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .add-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
+        .cart-icon-wrapper {
+            position: relative;
+            background: rgba(255,255,255,0.05);
+            padding: 10px 14px;
+            border-radius: 50%;
             cursor: pointer;
-            transition: 0.2s;
+            border: 1px solid var(--border-color);
         }
 
-        .add-btn:hover {
-            background-color: #b71c1c;
+        .cart-icon-wrapper:hover {
+            border-color: var(--primary-accent);
         }
 
-        /* Cart Modal */
-        .cart-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 2000;
-            justify-content: center;
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--secondary-accent);
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
             align-items: center;
+            justify-content: center;
         }
 
-        .cart-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 500px;
-            max-height: 80vh;
-            overflow-y: auto;
+        html[dir="ltr"] .cart-badge {
+            right: auto;
+            left: -5px;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px 30px;
+        }
+
+        .hero-title {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .hero-slogan {
+            font-size: 18px;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .menu-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .food-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .food-card:hover {
+            border-color: var(--primary-accent);
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+
+        .food-img-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
             position: relative;
         }
 
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            left: 15px;
-            font-size: 1.5rem;
+        .food-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .food-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .food-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .food-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .food-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .food-price {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-accent);
+        }
+
+        .add-to-cart-btn {
+            background: var(--gradient-accent);
+            border: none;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .add-to-cart-btn:hover {
+            opacity: 0.9;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100%;
+            background: #120a1f;
+            border-left: 1px solid var(--border-color);
+            z-index: 2000;
+            transition: right 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            padding: 25px;
+        }
+
+        html[dir="ltr"] .cart-sidebar {
+            right: auto;
+            left: -400px;
+            border-left: none;
+            border-right: 1px solid var(--border-color);
+            transition: left 0.4s ease;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        html[dir="ltr"] .cart-sidebar.open {
+            left: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .close-cart-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 20px;
             cursor: pointer;
         }
 
-        [dir="ltr"] .close-btn {
-            left: auto;
-            right: 15px;
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin: 20px 0;
         }
 
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 12px;
+            border-radius: 10px;
         }
 
-        .item-controls {
+        .cart-item-info h4 {
+            font-size: 15px;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-info p {
+            font-size: 13px;
+            color: var(--primary-accent);
+        }
+
+        .cart-controls {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .qty-btn {
-            background: #eee;
-            border: none;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .cart-total {
-            margin-top: 20px;
-            text-align: space-between;
-            font-weight: bold;
-            font-size: 1.2rem;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .checkout-btn {
-            width: 100%;
-            background-color: #25D366;
+            background: var(--border-color);
             color: white;
             border: none;
-            padding: 12px;
-            border-radius: 5px;
-            font-size: 1rem;
-            margin-top: 15px;
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
             cursor: pointer;
-            font-weight: bold;
         }
 
-        .toll-free {
-            text-align: center;
-            margin-top: 30px;
-            padding: 15px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        .cart-footer {
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+        }
+
+        .cart-total-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .whatsapp-send-btn {
+            width: 100%;
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .whatsapp-send-btn:hover {
+            background: #1ebc57;
+        }
+
+        @media (max-width: 480px) {
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+            html[dir="ltr"] .cart-sidebar {
+                left: -100%;
+            }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-container">
-            <div class="logo" id="logo-text">ماك | MAC</div>
-            <div class="slogan" id="slogan-text">تذوقه = أنت تحبه | test it = you like it</div>
-        </div>
-        <div class="header-controls">
-            <button class="btn-lang" onclick="toggleLanguage()" id="lang-btn">English</button>
-            <button class="cart-icon-btn" onclick="openCart()">
-                <i class="fas fa-shopping-cart"></i>
-                <span id="cart-btn-text">السلة</span> (<span id="cart-count">0</span>)
+        <div class="brand-logo">MAC</div>
+        <div class="header-actions">
+            <button class="lang-btn" onclick="toggleLanguage()">
+                <i class="fa-solid fa-globe"></i>
+                <span id="lang-btn-text">English</span>
             </button>
+
+            <div class="cart-icon-wrapper" onclick="toggleCart()">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <div class="cart-badge" id="cart-badge-count">0</div>
+            </div>
         </div>
     </header>
 
-    <div class="container">
-        <h2 class="section-title" id="menu-title">قائمة الوجبات والمنتجات</h2>
-        
-        <div class="products-grid" id="products-container">
-            <!-- المنتجات تولد تلقائياً -->
-        </div>
+    <section class="hero-section">
+        <h1 class="hero-title">MAC Restaurant</h1>
+        <p class="hero-slogan" id="hero-slogan-text">
+            طعم الجودة واللذة، يُحضَّر بكل شغف ليكون خيارك المفضل دائماً.
+        </p>
+    </section>
 
-        <div class="toll-free">
-            <span id="phone-label">الرقم المجاني للتواصل:</span> 
-            <strong dir="ltr">800-12345</strong>
-        </div>
-    </div>
+    <main class="menu-container" id="menu-container"></main>
 
-    <!-- نافذة السلة -->
-    <div class="cart-modal" id="cart-modal">
-        <div class="cart-content">
-            <span class="close-btn" onclick="closeCart()">&times;</span>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
             <h3 id="cart-title">سلة المشتريات</h3>
-            <div id="cart-items" style="margin-top: 15px;">
-                <!-- عناصر السلة -->
+            <button class="close-cart-btn" onclick="toggleCart()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="cart-items" id="cart-items-container"></div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span id="cart-total-label">المجموع:</span>
+                <span id="cart-total-price">0.000 ر.ع</span>
             </div>
-            <div class="cart-total">
-                <span id="total-label">المجموع الإجمالي:</span>
-                <span id="total-amount">0.000 ر.ع</span>
-            </div>
-            <button class="checkout-btn" onclick="sendToWhatsApp()" id="checkout-btn">
-                <i class="fab fa-whatsapp"></i> إرسال الفاتورة عبر الواتساب
+            <button class="whatsapp-send-btn" onclick="sendToWhatsApp()">
+                <i class="fa-brands fa-whatsapp"></i>
+                <span id="whatsapp-btn-text">إرسال الطلب عبر الواتساب</span>
             </button>
         </div>
     </div>
 
     <script>
-        let currentLang = 'ar';
-        let cart = [];
+        const restaurantWhatsAppNumber = "96890000000"; // استبدله برقمك
 
         const translations = {
             ar: {
-                logo: "ماك | MAC",
-                slogan: "تذوقه = أنت تحبه | test it = you like it",
-                menuTitle: "قائمة الوجبات والمنتجات",
-                langBtn: "English",
-                cartBtn: "السلة",
+                langButton: "English",
+                heroSlogan: "طعم الجودة واللذة، يُحضَّر بكل شغف ليكون خيارك المفضل دائماً.",
                 cartTitle: "سلة المشتريات",
-                totalLabel: "المجموع الإجمالي:",
-                checkoutBtn: "إرسال الفاتورة عبر الواتساب",
-                addToCart: "إضافة للسلة",
+                cartTotalLabel: "المجموع الإجمالي:",
+                whatsappBtn: "إرسال الطلب عبر الواتساب",
+                addToCartBtn: "إضافة",
                 currency: "ر.ع",
-                phoneLabel: "الرقم المجاني للتواصل:"
+                emptyCartMsg: "سلة المشتريات فارغة حالياً."
             },
             en: {
-                logo: "MAC | ماك",
-                slogan: "test it = you like it",
-                menuTitle: "Our Products",
-                langBtn: "العربية",
-                cartBtn: "Cart",
-                cartTitle: "Your Cart",
-                totalLabel: "Total Amount:",
-                checkoutBtn: "Send Bill via WhatsApp",
-                addToCart: "Add to Cart",
+                langButton: "العربية",
+                heroSlogan: "The taste of quality and deliciousness, crafted with passion to be your ultimate favorite choice.",
+                cartTitle: "Shopping Cart",
+                cartTotalLabel: "Total Amount:",
+                whatsappBtn: "Send Order via WhatsApp",
+                addToCartBtn: "Add",
                 currency: "OMR",
-                phoneLabel: "Toll-Free Phone:"
+                emptyCartMsg: "Your cart is currently empty."
             }
         };
 
-        const products = [
+        const foodData = [
             {
                 id: 1,
-                nameAr: "وجبة بيج ماك",
-                nameEn: "Big Mac Meal",
-                descAr: "قطعتان من لحم البقر البقري الممتاز مع الصلصة الخاصة",
-                descEn: "Two 100% beef patties with special sauce",
-                price: 2.500,
+                nameAr: "ماك سينجل برجر",
+                nameEn: "MAC Single Burger",
+                descAr: "شريحة لحم بقر طازجة مع جبنة شيدر مضافة وصوص ماك الخاص.",
+                descEn: "Fresh beef patty with cheddar cheese and special MAC sauce.",
+                price: 2.200,
                 image: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500"
             },
             {
                 id: 2,
-                nameAr: "ماك تشيكن",
-                nameEn: "McChicken",
-                descAr: "صدر دجاج مقرمش مع الخس و المايونيز",
-                descEn: "Crispy chicken breast with lettuce and mayo",
-                price: 1.800,
-                image: "https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=500"
+                nameAr: "ماك دبل تشيز",
+                nameEn: "MAC Double Cheese",
+                descAr: "شريحتان من اللحم المشوي مع طبقتين من الجبنة الذائبة.",
+                descEn: "Double grilled beef patties with double melted cheese.",
+                price: 3.100,
+                image: "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?w=500"
             },
             {
                 id: 3,
-                nameAr: "بطاطس مقلية",
-                nameEn: "French Fries",
-                descAr: "بطاطس ذهبية مقرمشة ولذيذة",
-                descEn: "Golden crispy and delicious fries",
-                price: 0.800,
-                image: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500"
+                nameAr: "كريسبي تشيكن برجر",
+                nameEn: "Crispy Chicken Burger",
+                descAr: "صدر دجاج مقرمش مع الخس الصازج وصوص المايونيز الحار.",
+                descEn: "Crispy chicken breast with fresh lettuce and spicy mayo.",
+                price: 2.500,
+                image: "https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=500"
+            },
+            {
+                id: 4,
+                nameAr: "بطاطس ماك المتبلة",
+                nameEn: "MAC Seasoned Fries",
+                descAr: "بطاطس مقرمشة متبلة بخلطة بهارات ماك الخاصة.",
+                descEn: "Crispy fries seasoned with signature MAC spice mix.",
+                price: 1.000,
+                image: "https://images.unsplash.com/photo-1576107232684-1279f390859f?w=500"
             }
         ];
 
-        function renderProducts() {
-            const container = document.getElementById('products-container');
-            container.innerHTML = '';
-            
-            products.forEach(p => {
-                const name = currentLang === 'ar' ? p.nameAr : p.nameEn;
-                const desc = currentLang === 'ar' ? p.descAr : p.descEn;
+        let currentLang = "ar";
+        let cart = [];
+
+        function renderMenu() {
+            const menuContainer = document.getElementById("menu-container");
+            menuContainer.innerHTML = "";
+
+            foodData.forEach(item => {
+                const name = currentLang === "ar" ? item.nameAr : item.nameEn;
+                const desc = currentLang === "ar" ? item.descAr : item.descEn;
                 const currency = translations[currentLang].currency;
 
-                container.innerHTML += `
-                    <div class="product-card">
-                        <img src="${p.image}" alt="${name}" class="product-img">
-                        <div class="product-info">
-                            <div class="product-title">${name}</div>
-                            <div class="product-desc">${desc}</div>
-                            <div class="product-bottom">
-                                <span class="price">${p.price.toFixed(3)} ${currency}</span>
-                                <button class="add-btn" onclick="addToCart(${p.id})">${translations[currentLang].addToCart}</button>
+                const cardHtml = `
+                    <div class="food-card">
+                        <div class="food-img-wrapper">
+                            <img src="${item.image}" alt="${name}" class="food-img">
+                        </div>
+                        <div class="food-info">
+                            <div>
+                                <h3 class="food-title">${name}</h3>
+                                <p class="food-desc">${desc}</p>
+                            </div>
+                            <div class="food-bottom">
+                                <span class="food-price">${item.price.toFixed(3)} ${currency}</span>
+                                <button class="add-to-cart-btn" onclick="addToCart(${item.id})">
+                                    <i class="fa-solid fa-plus"></i> ${translations[currentLang].addToCartBtn}
+                                </button>
                             </div>
                         </div>
                     </div>
                 `;
+                menuContainer.innerHTML += cardHtml;
             });
         }
 
         function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            currentLang = currentLang === "ar" ? "en" : "ar";
             document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
 
-            document.getElementById('logo-text').innerText = translations[currentLang].logo;
-            document.getElementById('slogan-text').innerText = translations[currentLang].slogan;
-            document.getElementById('menu-title').innerText = translations[currentLang].menuTitle;
-            document.getElementById('lang-btn').innerText = translations[currentLang].langBtn;
-            document.getElementById('cart-btn-text').innerText = translations[currentLang].cartBtn;
-            document.getElementById('cart-title').innerText = translations[currentLang].cartTitle;
-            document.getElementById('total-label').innerText = translations[currentLang].totalLabel;
-            document.getElementById('checkout-btn').innerHTML = `<i class="fab fa-whatsapp"></i> ${translations[currentLang].checkoutBtn}`;
-            document.getElementById('phone-label').innerText = translations[currentLang].phoneLabel;
+            document.getElementById("lang-btn-text").innerText = translations[currentLang].langButton;
+            document.getElementById("hero-slogan-text").innerText = translations[currentLang].heroSlogan;
+            document.getElementById("cart-title").innerText = translations[currentLang].cartTitle;
+            document.getElementById("cart-total-label").innerText = translations[currentLang].cartTotalLabel;
+            document.getElementById("whatsapp-btn-text").innerText = translations[currentLang].whatsappBtn;
 
-            renderProducts();
-            updateCartUI();
+            renderMenu();
+            updateCart();
         }
 
-        function addToCart(productId) {
-            const existing = cart.find(item => item.id === productId);
-            if (existing) {
-                existing.qty++;
+        function toggleCart() {
+            const sidebar = document.getElementById("cart-sidebar");
+            sidebar.classList.toggle("open");
+        }
+
+        function addToCart(itemId) {
+            const existingItem = cart.find(item => item.id === itemId);
+            if (existingItem) {
+                existingItem.quantity += 1;
             } else {
-                cart.push({ id: productId, qty: 1 });
+                const itemData = foodData.find(item => item.id === itemId);
+                cart.push({ ...itemData, quantity: 1 });
             }
-            updateCartUI();
+            updateCart();
         }
 
-        function changeQty(productId, delta) {
-            const item = cart.find(item => item.id === productId);
-            if (item) {
-                item.qty += delta;
-                if (item.qty <= 0) {
-                    cart = cart.filter(i => i.id !== productId);
+        function changeQuantity(itemId, change) {
+            const itemIndex = cart.findIndex(item => item.id === itemId);
+            if (itemIndex > -1) {
+                cart[itemIndex].quantity += change;
+                if (cart[itemIndex].quantity <= 0) {
+                    cart.splice(itemIndex, 1);
                 }
             }
-            updateCartUI();
+            updateCart();
         }
 
-        function updateCartUI() {
-            const count = cart.reduce((sum, item) => sum + item.qty, 0);
-            document.getElementById('cart-count').innerText = count;
+        function updateCart() {
+            const container = document.getElementById("cart-items-container");
+            const badge = document.getElementById("cart-badge-count");
+            const totalPriceElement = document.getElementById("cart-total-price");
 
-            const cartContainer = document.getElementById('cart-items');
-            cartContainer.innerHTML = '';
-            
-            let total = 0;
-            const currency = translations[currentLang].currency;
+            container.innerHTML = "";
+            let totalItemsCount = 0;
+            let totalPrice = 0;
 
-            cart.forEach(item => {
-                const product = products.find(p => p.id === item.id);
-                const name = currentLang === 'ar' ? product.nameAr : product.nameEn;
-                const itemTotal = product.price * item.qty;
-                total += itemTotal;
+            if (cart.length === 0) {
+                container.innerHTML = `<p style="color: var(--text-muted); text-align: center; margin-top: 40px;">${translations[currentLang].emptyCartMsg}</p>`;
+            } else {
+                cart.forEach(item => {
+                    totalItemsCount += item.quantity;
+                    const itemTotal = item.price * item.quantity;
+                    totalPrice += itemTotal;
 
-                cartContainer.innerHTML += `
-                    <div class="cart-item">
-                        <div>
-                            <div><strong>${name}</strong></div>
-                            <div style="font-size: 0.85rem; color: #666;">${product.price.toFixed(3)} ${currency}</div>
+                    const name = currentLang === "ar" ? item.nameAr : item.nameEn;
+                    const currency = translations[currentLang].currency;
+
+                    const itemHtml = `
+                        <div class="cart-item">
+                            <div class="cart-item-info">
+                                <h4>${name}</h4>
+                                <p>${itemTotal.toFixed(3)} ${currency}</p>
+                            </div>
+                            <div class="cart-controls">
+                                <button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="qty-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
+                            </div>
                         </div>
-                        <div class="item-controls">
-                            <button class="qty-btn" onclick="changeQty(${item.id}, -1)">-</button>
-                            <span>${item.qty}</span>
-                            <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
-                        </div>
-                    </div>
-                `;
-            });
+                    `;
+                    container.innerHTML += itemHtml;
+                });
+            }
 
-            document.getElementById('total-amount').innerText = `${total.toFixed(3)} ${currency}`;
-        }
-
-        function openCart() {
-            document.getElementById('cart-modal').style.display = 'flex';
-        }
-
-        function closeCart() {
-            document.getElementById('cart-modal').style.display = 'none';
+            badge.innerText = totalItemsCount;
+            totalPriceElement.innerText = `${totalPrice.toFixed(3)} ${translations[currentLang].currency}`;
         }
 
         function sendToWhatsApp() {
-            if (cart.length === 0) return;
+            if (cart.length === 0) {
+                alert(currentLang === "ar" ? "سلة المشتريات فارغة حالياً!" : "Your cart is empty!");
+                return;
+            }
 
-            let message = currentLang === 'ar' ? "طلب جديد من الموقع:\n\n" : "New Order from Website:\n\n";
+            let billText = `🍔 *طلب جديد من مطعم MAC* 🍔\n\n`;
             let total = 0;
-            const currency = translations[currentLang].currency;
 
-            cart.forEach(item => {
-                const product = products.find(p => p.id === item.id);
-                const name = currentLang === 'ar' ? product.nameAr : product.nameEn;
-                const itemTotal = product.price * item.qty;
+            cart.forEach((item, index) => {
+                const name = currentLang === "ar" ? item.nameAr : item.nameEn;
+                const itemTotal = item.price * item.quantity;
                 total += itemTotal;
-                message += `- ${name} (x${item.qty}) : ${itemTotal.toFixed(3)} ${currency}\n`;
+                billText += `${index + 1}. *${name}*\n   الكمية: ${item.quantity} | السعر: ${itemTotal.toFixed(3)} ر.ع\n\n`;
             });
 
-            message += `\n${translations[currentLang].totalLabel} ${total.toFixed(3)} ${currency}`;
+            billText += `---------------------------\n`;
+            billText += `💰 *المجموع الإجمالي للطلب: ${total.toFixed(3)} ر.ع*\n\n`;
+            billText += `🚗 *طريقة الاستلام:* استلام ذاتي من فرع المطعم (لا يوجد توصيل).\n\n💬 سيتواصل معك المطعم لتحديد طريقة الدفع وتجهيز طلبك.`;
 
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+            const encodedText = encodeURIComponent(billText);
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${restaurantWhatsAppNumber}&text=${encodedText}`;
+            window.open(whatsappUrl, '_blank');
         }
 
-        // Initialize App
-        renderProducts();
+        renderMenu();
     </script>
 </body>
 </html>
