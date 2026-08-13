@@ -402,6 +402,10 @@
       text-decoration: none;
     }
 
+    .white-text:hover {
+      text-decoration: underline;
+    }
+
     .footer-rights-row {
       display: flex;
       justify-content: space-between;
@@ -492,12 +496,25 @@
   <footer>
     <div class="footer-content">
       <div class="footer-info-row">
-        <span><span id="ui-free-call">رقم التواصل المجاني:</span> <a href="tel:+96879277221" class="white-text">+968 79277221</a></span>
-        <span><span id="ui-insta-label">حسابنا على الإنستقرام:</span> <span class="white-text">omanweb1</span></span>
+        <span>
+          <span id="ui-free-call">رقم التواصل المجاني:</span> 
+          <!-- الضغط على الرقم يدخل العميل المباشرة لمحادثة الواتساب -->
+          <a href="https://wa.me/96879277221" target="_blank" class="white-text">+968 79277221</a>
+        </span>
+        <span>
+          <span id="ui-insta-label">حسابنا على الإنستقرام:</span> 
+          <!-- الضغط على اليوزر يدخل العميل لموقع الإنستقرام -->
+          <a href="https://instagram.com/omanweb1" target="_blank" class="white-text">omanweb1</a>
+        </span>
       </div>
       <div class="footer-rights-row">
-        <div class="rights-text" id="ui-rights-ar">الحقوق محفوظة لـ omanweb1 ©</div>
-        <div class="rights-text" id="ui-rights-en">All rights reserved to omanweb1 ©</div>
+        <!-- الضغط على الحقوق يدخل العميل مباشرة لموقع الإنستقرام -->
+        <div class="rights-text">
+          <a href="https://instagram.com/omanweb1" target="_blank" class="white-text" id="ui-rights-ar">الحقوق محفوظة لـ omanweb1 ©</a>
+        </div>
+        <div class="rights-text">
+          <a href="https://instagram.com/omanweb1" target="_blank" class="white-text" id="ui-rights-en">All rights reserved to omanweb1 ©</a>
+        </div>
       </div>
     </div>
   </footer>
@@ -544,7 +561,9 @@
         instaLabel: 'حسابنا على الإنستقرام:',
         currency: 'ر.ع',
         backArrow: '→',
-        emptyCart: 'السلة فارغة حالياً'
+        emptyCart: 'السلة فارغة حالياً',
+        rightsAr: 'الحقوق محفوظة لـ omanweb1 ©',
+        rightsEn: 'All rights reserved to omanweb1 ©'
       },
       en: {
         title: 'MAC | ماك',
@@ -559,7 +578,9 @@
         instaLabel: 'Our Instagram:',
         currency: 'OMR',
         backArrow: '←',
-        emptyCart: 'Your cart is empty'
+        emptyCart: 'Your cart is empty',
+        rightsAr: 'الحقوق محفوظة لـ omanweb1 ©',
+        rightsEn: 'All rights reserved to omanweb1 ©'
       }
     };
 
@@ -586,6 +607,8 @@
       document.getElementById('ui-free-call').innerText = t.freeCall;
       document.getElementById('ui-insta-label').innerText = t.instaLabel;
       document.getElementById('back-arrow').innerText = t.backArrow;
+      document.getElementById('ui-rights-ar').innerText = t.rightsAr;
+      document.getElementById('ui-rights-en').innerText = t.rightsEn;
 
       renderMenuList();
       if (selectedProductId) {
