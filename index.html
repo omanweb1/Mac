@@ -6,9 +6,9 @@
   <title>ماك | MAC</title>
   <style>
     :root {
-      --purple-color: #5B2C6F;
+      --purple-color: #4B0082;
       --orange-color: #E67E22;
-      --milky-white: #FAFAFA;
+      --beige-bg: #EDE8D0;
       --text-dark: #2C3E50;
       --green-color: #27AE60;
     }
@@ -21,7 +21,7 @@
     }
 
     body {
-      background-color: var(--milky-white);
+      background-color: var(--beige-bg);
       color: var(--text-dark);
       display: flex;
       flex-direction: column;
@@ -129,25 +129,28 @@
     }
 
     .menu-card {
-      background: #ffffff;
-      border-radius: 10px;
+      background: var(--purple-color);
+      color: #ffffff;
+      border-radius: 12px;
       padding: 20px;
       text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
       cursor: pointer;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      border: 1px solid #eaeaea;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
     }
 
     .menu-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
     }
 
     .menu-card h3 {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      color: var(--purple-color);
+      font-size: 1.3rem;
+      color: #ffffff;
     }
 
     .menu-card .price {
@@ -174,7 +177,7 @@
       background: #ffffff;
       border-radius: 12px;
       padding: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
     }
 
     .product-image {
@@ -215,11 +218,11 @@
       cursor: pointer;
       font-weight: bold;
       width: 100%;
-      transition: background-color 0.2s;
+      transition: opacity 0.2s;
     }
 
     .add-to-cart-btn:hover {
-      background-color: #4a235a;
+      opacity: 0.9;
     }
 
     /* Cart Sidebar Slide-out */
@@ -384,6 +387,11 @@
       font-weight: 500;
     }
 
+    .white-text {
+      color: #ffffff !important;
+      text-decoration: none;
+    }
+
     .footer-rights-row {
       display: flex;
       justify-content: space-between;
@@ -474,8 +482,8 @@
   <footer>
     <div class="footer-content">
       <div class="footer-info-row">
-        <span><span id="ui-free-call">رقم التواصل المجاني:</span> +968 79277221</span>
-        <span><span id="ui-insta-label">حسابنا على الإنستقرام:</span> omanweb1</span>
+        <span><span id="ui-free-call">رقم التواصل المجاني:</span> <a href="tel:+96879277221" class="white-text">+968 79277221</a></span>
+        <span><span id="ui-insta-label">حسابنا على الإنستقرام:</span> <span class="white-text">omanweb1</span></span>
       </div>
       <div class="footer-rights-row">
         <div class="rights-text" id="ui-rights-ar">الحقوق محفوظة لـ omanweb1 ©</div>
@@ -485,18 +493,16 @@
   </footer>
 
   <script>
-    // State Management
     let currentLang = 'ar';
     let cart = [];
     let selectedProductId = null;
 
-    // Products Data
     const products = [
       {
         id: 'mac-special',
         name: { ar: 'ماك سبشل', en: 'MAC Special' },
         price: 2.2,
-        image: 'mac-special.jpg',
+        image: 'burgers.jpeg', // اسم صورة البرجر بدون مسافات
         description: {
           ar: 'شريحتين خبز محمرين ما عليهم كلام و خس أمريكي طازج مع صوص مال سبشل المفضل و قطعه لحم جوسي مشوي عدل',
           en: 'Two perfectly toasted buns, fresh American lettuce, signature special sauce, and a juicy grilled meat patty.'
@@ -506,7 +512,7 @@
         id: 'mac-dynamite-secret',
         name: { ar: 'ماك داينمت سيكرت', en: 'MAC Dynamite Secret' },
         price: 1.9,
-        image: 'mac-dynamite.jpg',
+        image: 'Fries.jpeg', // اسم صورة البطاطا
         description: {
           ar: 'بطاطا مقليه مع قطع دجاج كرسبي مقرمشه و صوص ماك الخاص',
           en: 'Crispy French fries topped with crunchy chicken pieces and signature MAC special sauce.'
@@ -514,7 +520,6 @@
       }
     ];
 
-    // Language Content Maps
     const translations = {
       ar: {
         title: 'ماك | MAC',
@@ -548,13 +553,11 @@
       }
     };
 
-    // Initialize Page
     document.addEventListener('DOMContentLoaded', () => {
       renderMenuList();
       updateCartUI();
     });
 
-    // Language Switcher
     function toggleLanguage() {
       currentLang = currentLang === 'ar' ? 'en' : 'ar';
       document.documentElement.lang = currentLang;
@@ -562,7 +565,6 @@
       
       document.getElementById('lang-toggle-btn').innerText = currentLang === 'ar' ? 'EN' : 'عربي';
       
-      // Update UI Static Texts
       const t = translations[currentLang];
       document.getElementById('ui-title').innerText = t.title;
       document.getElementById('ui-slogan').innerText = t.slogan;
@@ -582,7 +584,6 @@
       updateCartUI();
     }
 
-    // Render Main Menu Items (Name and Price Only)
     function renderMenuList() {
       const container = document.getElementById('menu-items-container');
       const t = translations[currentLang];
@@ -600,7 +601,6 @@
       });
     }
 
-    // View Navigation
     function showMenuView() {
       selectedProductId = null;
       document.getElementById('page-product').classList.remove('active');
@@ -625,7 +625,6 @@
       document.getElementById('page-product').classList.add('active');
     }
 
-    // Cart Actions
     function toggleCart() {
       const sidebar = document.getElementById('cart-sidebar');
       const overlay = document.getElementById('cart-overlay');
@@ -707,11 +706,9 @@
       cartTotal.innerText = `${total.toFixed(1)} ${t.currency}`;
     }
 
-    // WhatsApp Integration
     function sendWhatsAppOrder() {
       if (cart.length === 0) return;
 
-      const t = translations[currentLang];
       let message = `طلب جديد من مطعم ماك\n\n`;
 
       let subtotal = 0;
@@ -728,7 +725,7 @@
 
       if (isDelivery) {
         total += 1.0;
-        message += `تفاصيل التوصيل: التوصيل للمنزل 1ر.ع 1ROM 🚗\n`;
+        message += `تفاصيل التوصيل: التوصيل للمنزل 1ر.ع 1OMR 🚗\n`;
       }
 
       message += `المجموع الإجمالي: ${total.toFixed(1)} ر.ع`;
